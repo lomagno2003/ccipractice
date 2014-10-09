@@ -1,0 +1,101 @@
+/* 
+If we see the string as an array of characters(where each character can be seen as a number between 0 and 255)
+at first we can check if the size of the string is higher than 255. If it is, then the string have to have repeated
+characters.
+*/
+#include <iostream.h>
+
+using namespace std;
+
+public int main(int argc, char * argv[]){
+	char * str = "abcda";
+	
+	if(hasAllUnique1(str,5)){
+		cout << "All unique" << endl; 
+	}
+	
+	return 0;
+}
+
+public boolean hasAllUnique1(char * str, int size){
+	if(size>255){
+		return false;
+	} else {
+		/* If it has less characters, then we can double iterate with a cost of O(n²) through all the elements */
+		//(SUM*N + CMP*N)*(SUM*N + CMP*N)*CMP
+		//(SUM*N)² + 2*CMP*N + (CMP*N)²
+		//CMP*(SUM*N)² + 2*CMP²*N + CMP³*N²
+		for(int i=0;i<size;i++){ // SUM + CMP
+			for(int j=0;j<size;j++){ // SUM + CMP
+				if(str[i]=str[j]){ // CMP
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+}
+
+/* Maybe a better solution is, instead of iterate with a double "for", we can sort the elements with cost of O(n*log(n)) and then 
+ * iterate through the elements looking for str[i]==str[i+1] */
+ 
+ public boolean hasAllUnique2(char * str, int size){
+ 	if(size > 255){
+ 		return false;
+ 	} else {
+ 		char * sortedStr = sort(str,size);
+ 		
+ 		for(int i=0;i+1<size;i++){
+ 			if(str[i]==str[i+1]){
+ 				return false;
+ 			}
+ 		}
+ 		
+ 		return true;
+ 	}
+ }
+ 
+ public void mergeSort(char * strA, int begin, int end, char * strB){
+ 	if(end-begin < 2){ //CMP
+ 		// The strings strA and strB are sorted
+ 		return;
+ 	} else {
+ 		int middle = (end - begin) / 2; //RST + DIV
+ 		
+ 		mergeSort(strA, begin, middle, strB);
+ 		mergeSort(strA, middle, end, strB);
+ 		merge(strA, begin, middle, end, strB);
+ 		
+ 		copyArray(strB, begin, end, strA);
+ 	}
+ }
+ 
+ public void merge(char * input, int begin, int middle, int end, char * output){
+ 	int j0=begin;
+ 	int j1=middle;
+ 	
+ 	for(int i=begin;i<end;i++){
+	 	if(j0<middle&&(j1>=end||input[j0]<=input[j1])){
+	 		output[i]=input[j0];
+	 		j0++;
+	 	} else {
+	 		output[i]=input[j1];
+	 	}
+	 }
+ }
+ 
+ public void copyArray(char * strA, int offset, int length, char * strB){
+ 	for(int i=offset;i<length + offset;i++){
+ 		strB[i] = strA[i];
+ 	}
+ }
+ 
+ public char * sort(char * str, int size){
+ 	char * output = new char[size];
+ 	
+ 	copyArray(str,0,size,output);
+ 	mergeSort(str,0,size,output);
+ 	  
+ 	return output;
+ }
