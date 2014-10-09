@@ -1,0 +1,4 @@
+/* The better solution proposed in the book uses pointers instead of integers
+ * to iterate through the elements, avoiding the calculation of the positions
+ * in the array
+ */

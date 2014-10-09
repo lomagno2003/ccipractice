@@ -1,0 +1,54 @@
+/*
+ * Solution.cpp
+ *
+ *  Created on: Oct 9, 2014
+ *      Author: clomagno
+ */
+
+/*
+ * The first way to solve this(supposing that i know the size of the string)
+ * is just  iterate through the elements inserting
+ * the i-th element on the n-i position, and conversely.
+ */
+
+#include <iostream>
+
+using namespace std;
+
+ /* This solution has a cost of O(N/2) and a O(1) in space, but we have to know the size */
+ void reverseKnowingSize(char * str, int size){
+ 	for(int i=0;i<size/2;i++){
+ 		char aux = str[size-i-1];
+ 		str[size-i-1] = str[i];
+ 		str[i] = aux;
+ 	}
+ }
+
+ int calculateSizeOfString(char * str){
+ 	int result = 0;
+
+ 	while(str[result]!=0){
+ 		result++;
+ 	}
+
+ 	return result;
+ }
+
+ /* So, the general solution is */
+ void reverse(char * str){
+ 	//Cost of O(N) and O(1) in space
+ 	int size = calculateSizeOfString(str);
+
+ 	//Cost of O(N/2) and O(1) in space
+ 	reverseKnowingSize(str,size);
+ }
+
+ /* So, the general solution has a cost of O(N + N/2) = O(3/2*N), so O(N)*/
+
+ int main(int argc, char* argv[]){
+	 char str[] = "reverse";
+	 reverse(str);
+	 cout << "Reversed: '" << str << "'" << endl;
+	 return 0;
+ }
+

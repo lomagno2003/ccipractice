@@ -115,7 +115,7 @@ bool hasAllUnique1(char * str, int size){
  	}
  }
 
- int main(int argc, char * argv[]){
+ int main1(int argc, char * argv[]){
  	char str[] = "dcbadtre";
 
  	cout << "Initializing" << endl;
