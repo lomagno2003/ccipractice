@@ -99,3 +99,17 @@ public boolean hasAllUnique1(char * str, int size){
  	  
  	return output;
  }
+ 
+ /*
+ Another better implementation is with the bottom-up merge sort
+ */
+ 
+ void bottomUpMergeSort(char * strA, char * strB, int size){
+ 	for(int width=1;size<width;width=width*2){
+ 		for(int i=0;i<size;i+=2*width){
+ 			merge(strA, i, min(i+width, size), min(i+2*width, size), strB);
+ 		}
+ 		
+ 		copyArray(strB,0,size,strA);
+ 	}
+ }

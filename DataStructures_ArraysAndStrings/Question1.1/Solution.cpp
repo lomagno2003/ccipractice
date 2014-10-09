@@ -51,11 +51,27 @@ void mergeSort(char * strA, int begin, int end, char * strB){
 	}
 }
 
+/*
+Another better implementation is with the bottom-up merge sort
+*/
+
+void bottomUpMergeSort(char * strA, char * strB, int size){
+	for(int width=1;width<size;width=width*2){
+		for(int i=0;i<size;i+=2*width){
+			merge(strA, i, min(i+width, size), min(i+2*width, size), strB);
+		}
+
+		copyArray(strB,0,size,strA);
+	}
+}
+
 char * sort(char * str, int size){
 	char * output = new char[size];
 
 	copyArray(str,0,size,output);
-	mergeSort(str,0,size,output);
+	bottomUpMergeSort(str,output, size);
+
+	cout << "Sorted: '" << output << "'" << endl;
 
 	return output;
 }
@@ -100,11 +116,11 @@ bool hasAllUnique1(char * str, int size){
  }
 
  int main(int argc, char * argv[]){
- 	char str[] = "dcbae";
+ 	char str[] = "dcbadtre";
 
  	cout << "Initializing" << endl;
 
- 	if(hasAllUnique2(str,5)){
+ 	if(hasAllUnique2(str,8)){
  		cout << "All unique" << endl;
  	}
 
