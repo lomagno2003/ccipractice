@@ -1,0 +1,4 @@
+/*
+ * Didn't understand the question, i just made a "isReverse" function, and
+ * don't check if one string is a PERMUTATION of the other
+ */

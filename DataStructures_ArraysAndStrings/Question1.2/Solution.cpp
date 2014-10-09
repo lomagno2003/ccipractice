@@ -45,7 +45,7 @@ using namespace std;
 
  /* So, the general solution has a cost of O(N + N/2) = O(3/2*N), so O(N)*/
 
- int main(int argc, char* argv[]){
+ int main1_2(int argc, char* argv[]){
 	 char str[] = "reverse";
 	 reverse(str);
 	 cout << "Reversed: '" << str << "'" << endl;
