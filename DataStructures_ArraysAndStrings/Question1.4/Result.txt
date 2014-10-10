@@ -1,0 +1,9 @@
+/*
+ * Where some problems counting the space, i believed that 
+ * the size diference between ' ' and '%20' was 3, instead of 2,
+ * and i didn't manage well the end of the strings(using the special
+ * character '\0').
+ * 
+ * Another error was just resting 1 the three times for each
+ * character('0','2' and '%') instead of rest just -3
+*/
