@@ -1,0 +1,39 @@
+/*
+ * The solution was right, but the last iteration marking the zeros
+ * could be done better doing this: 
+ */
+ 
+ //O(M*N)
+ void algorithm(int matrix[M][N]){
+ 	bool zeroColumns[M];
+ 	bool zeroRows[N];
+ 	
+ 	//O(M)
+ 	for(int i=0;i<M;i++){
+ 		zeroColumns[i] = false;
+ 	}
+ 	
+ 	//O(N)
+ 	for(int i=0;i<N;i++){
+ 		zeroRows[i]=false;
+ 	}
+ 	
+ 	//O(N*M)
+ 	for(int i=0;i<M;i++){
+ 		for(int j=0;j<M;j++){
+ 			if(matrix[i][j]==0){
+ 				zeroColumns[i]=true;
+ 				zeroRows[j]=true;
+ 			}
+ 		}
+ 	}
+ 	
+ 	/* Here is the change */
+ 	for(int i=0;i<M;i++){
+ 		for(int j=0;i<N;j++){
+	 		if(zeroColumns[i]||zeroRows[j]){
+	 			matrix[i][j]=0;
+	 		}
+	 	}
+ 	}
+ }
