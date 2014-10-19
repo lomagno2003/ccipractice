@@ -1,0 +1,23 @@
+/*
+ * Well, at first, if a word is a rotation of another, both have the same size.
+ * So, we first check this, then we can concatenate the "rotated" word two times
+ * (i.e. if the word is "erbottlewat", the concatenation would be 
+ * "erbottlewaterbottle") and then, check if the word to check is a substring
+ * of the concatenation.
+*/
+
+public Boolean isRotation(String word, String rotation){
+	if(word.size().equals(rotation.size()){
+		String concatenation = rotation + rotation;
+		
+		//Represents the isSubstring of the question
+		return concatenation.contains(word);
+	} else {
+		return false;
+	}
+}
+
+/* The possible problem that it could have is with words like ababa, if we test if 
+ * "bab" is a rotation of "aba", both have the same size, and the concatenation
+ * is "abaaba". If we try with "abab" and "baba", the first is a rotation of the 
+ * seconds, so it seems to be ok */
