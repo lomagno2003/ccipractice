@@ -1,0 +1,82 @@
+/*
+ * One way to solve this, is to start iterating with a pointer k times,
+ * then start iterating from the begining with another pointer, and advancing
+ * both pointers at time. Then, when the first pointer reachs the end, the second
+ * one will be the kth element to the end
+ */
+
+ /* Implementation of the single linked list */
+ class Node{
+ 	private:
+ 		Node * next;
+ 		int value;
+ 	public:
+ 		Node(Node*, int);
+ 		Node * getNext();
+ 		int getValue();
+ };
+
+ Node::Node(Node* next, int value){
+ 	this->next = next;
+ 	this->value = value;
+ };
+
+ Node * Node::getNext(){
+ 	return this->next;
+ }
+
+ int Node::getValue(){
+ 	return this->value;
+ }
+
+ /* Implementation of the algorithm */
+ Node * getKstElement(Node * root, int k){
+ 	if(k>=0 && root != 0){
+	 	Node * ptr1 = root;
+	 	Node * ptr2 = root;
+
+	 	int count = 0;
+	 	/* Iterate until the last element with the first pointer */
+	 	while(ptr1->getNext() != 0){
+	 		ptr1 = ptr1->getNext();
+
+	 		/* If the first pointer moved k times, start iterating with the second one */
+	 		if(count!=k){
+	 			count++;
+	 		} else {
+	 			ptr2=ptr2->getNext();
+	 		}
+	 	}
+
+	 	if(count==k){
+	 		/* k <= size, so return second pointer */
+	 		return ptr2;
+	 	} else {
+	 		/* k > size, so return null */
+	 		return 0;
+	 	}
+	 } else {
+	 	/* Return null */
+	 	return 0;
+	 }
+ }
+
+#include <iostream>
+
+ using namespace std;
+
+ int main(int argc, char * argv[]){
+	 Node * root = new Node(0,5);
+	 root = new Node(root,4);
+	 root = new Node(root,3);
+	 root = new Node(root,2);
+	 root = new Node(root,1);
+	 root = new Node(root,0);
+
+	 Node * result = getKstElement(root, 2);
+
+	 cout << result->getValue() << endl;
+
+	 return 0;
+ }
+
