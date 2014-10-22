@@ -1,0 +1,5 @@
+/*
+ * The solution was the same as the proposed by the book, but i didn't
+ * contemplate the that if i remove the last element of the list, the condition
+ * (of the "for") which have a it->getNext(), just brake it all. 
+ */
