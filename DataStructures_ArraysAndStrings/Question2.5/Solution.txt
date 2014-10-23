@@ -1,0 +1,67 @@
+/*
+ * If the lists are inverse ordered, the solution is quite simple. Just iterate
+ * through each list doing the sum of the digits and creating the result digit
+ * of the return list, and saving the carry.
+ * Of course we have to take in count if the lists are of different sizes, so
+ * if one of the iterators became to the end of the list, then the rest of the digits are
+ * the rest of the other list(suming the carry ofcourse)  
+ */
+ 
+ class Node{
+ 	public:
+	 	Node * next;
+	 	int	value;
+	 	Node(Node*,int);
+ }
+ 
+ Node::Node(Node * next, int value){
+ 	this->next = next;
+ 	this->value = value;
+ }
+ 
+ Node * sum(Node * rootA, Node * rootB){
+ 	if(rootA==0){
+ 		return rootB;
+ 	}
+ 	
+ 	if(rootB==null){
+ 		return rootA;
+ 	}
+ 	
+ 	Node * ptrA = rootA;
+ 	Node * ptrB = rootB;
+ 	Node * result = 0;
+ 	Node * topResult = result;
+ 	
+ 	int value;
+ 	int carry = 0;
+ 	Node * newNode;
+ 	while(ptrA!=0&&ptrB!=0){
+ 		value = ptrA->value + ptrB->value + carry;
+ 		
+ 		if(value>=10){
+ 			carry=1;
+ 			value=value-10;
+ 		}
+ 		
+ 		newNode = new Node(0,value);
+ 		topResult->next=newNode;
+ 		/* Check if is the first element */
+ 		if(result==0){
+ 			result = newNode;
+ 		}
+ 		
+ 		topResult = newNode;
+ 		
+ 		ptrA=ptrA->next;
+ 		ptrB=ptrB->next;
+ 	}
+ 	
+ 	if(ptrA!=null){
+ 		topResult->next = ptrA;
+ 	} else if(ptrB!=null){
+ 		topResult->next = ptrB;
+ 	}
+ 	
+ 	return result;
+ }
