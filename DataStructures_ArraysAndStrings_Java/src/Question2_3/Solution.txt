@@ -1,0 +1,54 @@
+/*
+ * Because the list is a single linked list, and i have the access to the 
+ * node of the middle, one possible solution is to overwrite C with the next element
+ * and delete the duplicated next element.
+ */
+ 
+ public class Node{
+ 	private Object value;
+ 	private Node next;
+ 	
+ 	public Node(Object value, Node next){
+ 		this.setValue(value);
+ 		this.setNode(next);
+ 	}
+ 	
+ 	public Object getValue(){
+ 		return this.value;
+ 	}
+ 	
+ 	public void setValue(Object value){
+ 		this.value = value;
+ 	}
+ 	
+ 	public Node getNext(){
+ 		return this.next;
+ 	}
+ 	
+ 	public void setNext(Node next){
+ 		this.next = next; 
+ 	}
+ }
+ 
+ public void removeElement(Node element){
+ 	if(element!=null){
+ 		if(element.getNext()!=null){
+		 	/* Overwrite the value */
+		 	element.setValue(element.getNext().getValue());
+		 } else {
+		 	/* The next element is the last of the list, so here 
+		 	 * i have to throw an exception or something, because
+		 	 * is imposible to update the previous element */
+		 	 //TODO Throw exception
+		 }
+	 	
+	 	/* Delete the duplicated element */
+	 	element.setNext(element.getNext().getNext());
+	 } else {
+	 	//TODO Throw exception?
+	 }
+ }
+ 
+ /*
+  * And this solution have a cost of O(1) and a space of O(1)
+  */
