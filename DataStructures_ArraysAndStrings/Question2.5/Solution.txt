@@ -20,10 +20,12 @@
  }
  
  Node * sum(Node * rootA, Node * rootB){
+ 	/* If the first operand is null, return just the second */
  	if(rootA==0){
  		return rootB;
  	}
  	
+ 	/* If the second operand is null, return just the first */
  	if(rootB==null){
  		return rootA;
  	}
@@ -36,8 +38,22 @@
  	int value;
  	int carry = 0;
  	Node * newNode;
- 	while(ptrA!=0&&ptrB!=0){
- 		value = ptrA->value + ptrB->value + carry;
+ 	while(ptrA!=0||ptrB!=0){
+ 		value = carry;
+ 		carry = 0;
+ 		
+ 		if(ptrA!=0){
+ 			value+=ptrA->value;
+ 			ptrA=ptrA->next;
+ 		}
+ 		
+ 		if(ptrB!=0){
+ 			value+=ptrB->value;
+ 			ptrB=ptrB->next;
+ 		}
+ 		
+ 		/* Empty the carry */
+ 		carry = 0;
  		
  		if(value>=10){
  			carry=1;
@@ -52,16 +68,86 @@
  		}
  		
  		topResult = newNode;
- 		
- 		ptrA=ptrA->next;
- 		ptrB=ptrB->next;
  	}
  	
- 	if(ptrA!=null){
- 		topResult->next = ptrA;
- 	} else if(ptrB!=null){
- 		topResult->next = ptrB;
+ 	/* Check if is some carry */
+ 	if(carry>0){
+ 		topResult->next = new Node(0,carry);
  	}
  	
  	return result;
  }
+ 
+ 
+ /*
+  * If the list is double linked list, first i will find the last element 
+  * of both lists, and then do the same as above.
+  * If it is just single linked list, i will calculate the size of both lists,
+  * then i will do a recursive add though the lists and start making the sums
+  * with the recursion, and returning the carry
+  */
+  
+  
+  
+  int sumRec(Node * ptrA, int depthA, Node * ptrB, int depthB, Node * returnNode){
+  	if(depthA==0&&depthB==0){
+  		return 0;
+  	} else {
+  		int carry;
+  		Node * actualNode;
+  		
+  		if(depthA>depthB){
+  			actualNode = new Node(0,0);
+  			carry = sum(ptrA->next,depthA - 1, ptrB, depthB, actualNode);
+  			actualNode->value = ptrA->value + carry;
+  			returnNode->next = actualNode;
+
+  			if(actualNode->value > 10){
+  				actualNode->value -= 10;
+  				return 1;
+  			}  			
+  			
+  			return 0;
+  		} else if(depthA<depthB){
+  			actualNode = new Node(0,0);
+  			carry = sum(ptrA,depthA, ptrB->next, depthB - 1, returnNode);
+  			actualNode->value = ptrB->value + carry;
+  			returnNode->next = actualNode;
+  			
+  			if(actualNode->value > 10){
+  				actualNode->value -= 10;
+  				return 1;
+  			}
+  			
+  			return 0;
+  		} else {
+  			actualNode = new Node(0,0);
+  			carry = sum(ptrA->next, depthA - 1, ptrB->next, depthB - 1, nextNode);
+  			actualNode->value = ptrA->value + ptrB->value + carry;
+  			returnNode->next = actualNode;
+  				
+  			if(actualNode->value > 10){
+  				actualNode->value -=10;
+  				return 1;
+  			}
+  			
+  			return 0;
+  		}
+  	}
+  }
+  
+  /* Now we just have to find the size of each list, and call the recursive algorithm */
+  Node * sum2(Node * rootA, Node * rootB){
+  	int sizeA = 1;
+  	int sizeB = 1;
+  	
+  	for(Node * it=rootA;it!=0;it=it->next){
+  		sizeA++;
+  	}
+  	
+  	for(Node * it=rootB;it!=0;it=it->next){
+  		sizeB++;
+  	}
+  	
+  	return sumRec(rootA,sizeA,rootB,sizeB,new Node(0,0)); 
+  }

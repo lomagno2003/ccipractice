@@ -1,0 +1,6 @@
+/*
+ * The solution to the first case was the same, the solution to the second
+ * wasn't the same, instead of make the recursion check the depths of the lists
+ * it fill with zeroes the shorter list, so there is no need to compare the 
+ * depth of the recursion. Anyway the solution wasn't that bad
+*/
