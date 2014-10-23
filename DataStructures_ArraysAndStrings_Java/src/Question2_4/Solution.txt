@@ -1,0 +1,44 @@
+/*
+ * Well, one solution could be just start 2 new lists, one for the bigger values
+ * and another for the lower values. Then, iterate through each element and 
+ * add that node to the corresponding list. Finally link both lists
+ */
+ 
+ /* Suppose that the list is just a single linked list */
+ public Node solution(Node root, Integer value){
+ 	if(root != null){
+	 	Node rootHigherValues = null;
+	 	Node rootLowerValues = null;
+	 	Node lastLowerNode = null;
+	 	
+	 	Node it = root;
+	 	
+	 	while(it!=null){
+	 		Node nextIt = it.getNext();
+	 		
+	 		if(((Integer)it.getValue())>=value){
+	 			/* Add it to the higherValuesList */
+	 			it.setNext(rootHigherValues);
+	 			rootHigherValues = it;
+	 		} else {
+	 			/* I save a reference to the first node 
+	 			 * that i add to the lowerValuesList 
+	 			 */
+	 			if(lastLowerNode==null){
+	 				lastLowerNode = it;
+	 			}
+	 			
+	 			it.setNext(rootLowerValues);
+	 			rootLowerValues = it;
+	 		}
+	 		
+	 		it = nextIt;
+	 	}
+	 	
+	 	lastLowerNode.setNext(rootHigherValues);
+	 	
+	 	return rootLowerValues;
+	 }
+ }
+ 
+ /* This solution have a cost of O(N) */
