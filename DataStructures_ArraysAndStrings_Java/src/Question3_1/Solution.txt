@@ -1,0 +1,8 @@
+/*
+ * One way to use a single array as 3 stacks is to just split it in 3 equal arrays.
+ * The problem with this solution is that, in the case that one of the stacks is
+ * used more than the others, this will overflow the others, and the others will
+ * empty or almost empty.
+ * With 2 stacks the problem is easy, one stack is build from the begin of the 
+ * array, and the other from the end of the array.
+ */
