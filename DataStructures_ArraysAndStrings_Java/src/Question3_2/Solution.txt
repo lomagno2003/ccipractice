@@ -1,0 +1,71 @@
+/*
+ * Because it is a stack, the minium element will change only if the 
+ * pushed element is lower than the actual minimal element.
+ * When an element is popped up, the min value becomes the min value before the 
+ * popped element was pushed.
+ * So, we can store the actual min value with each element of the stack, and
+ * because the only elements modified of the stack are the one on the head, 
+ * a new minimal value will come only when pushed a lower value  
+ */
+ 
+ public class Stack{
+ 	private class StackElement{
+ 		private Integer actualMin;
+ 		private Integer value;
+ 		private StackElement nextElement;
+ 		
+ 		public StackElement(Integer value, Integer actualMin, StackElement nextElement){
+ 			this.actualMin = actualMin;
+ 			this.value = value;
+ 		}
+ 		
+ 		public Integer getActualMin(){
+ 			return this.actualMin;
+ 		}
+ 		
+ 		public Integer getValue(){
+ 			return this.value;
+ 		}
+ 		
+ 		public StackElement getNextElement(){
+ 			return this.nextElement;
+ 		}
+ 	}
+ 	
+ 	private StackElement headElement;
+ 	
+ 	public Stack(){
+ 		this.headElement = null;
+ 	}
+ 	
+ 	public Integer pop(){
+ 		if(this.headElement!=null){
+	 		Integer result = this.headElement.getValue();
+	 		this.headElement = headElement.getNextElement();
+	 		return result;
+	 	} else {
+	 		return null;
+	 	}
+ 	}
+ 	
+ 	public void push(Integer element){
+ 		Integer actualMin=this.getMin();
+ 		if(element < actualMin){
+ 			actualMin = element;
+ 		}
+ 		
+ 		this.headElement = new StackElement(element,actualMin,this.headElement);
+ 	}
+ 	
+ 	public Integer getMin(){
+ 		if(this.headElement!=null){
+ 			return this.headElement.getActualMin();
+ 		} else {
+ 			return null;
+ 		}
+ 	}
+ }
+ 
+ /*
+  * And that's it
+  */
