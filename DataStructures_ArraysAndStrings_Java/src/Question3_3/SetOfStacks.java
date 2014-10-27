@@ -1,0 +1,156 @@
+package Question3_3;
+
+/*
+ * One way to solve this is to implement the SetOfStacks as a list of Stacks.
+ * You can push elements and if the size of the Stacks exceed the threshold, then 
+ * a new Stack is created. When pop elements, if the last Stack is empty, then it 
+ * is deleted, and the elements is popped out from the previous Stack.
+ * Also, we can store the number of Stacks, then if we want to pop a element of the
+ * i-th Stack, we can do it by iterating through the list N-i times.
+ */
+ 
+ public class SetOfStacks implements IStack{
+ 	private class Stack implements IStack{
+ 		private class StackElement{
+ 			private StackElement next;
+ 			
+ 			private Integer value;
+ 			
+ 			public StackElement(StackElement next, Integer value){
+ 				this.next = next;
+ 				this.value = value;
+ 			}
+ 			
+ 			public StackElement getNext(){
+ 				return this.next;
+ 			}
+ 			
+ 			public Integer getValue(){
+ 				return this.value;
+ 			}
+ 		}
+ 		
+ 		private Stack next;
+ 		
+ 		public Stack(Stack next){
+ 			this.next = next;
+ 		}
+ 		
+ 		public Stack getNext(){
+ 			return this.next;
+ 		}
+ 		
+ 		public void setNext(Stack next){
+ 			this.next = next;
+ 		}
+ 		
+ 		private StackElement headElement = null;
+ 		
+ 		private Integer size = 0;
+ 		
+ 		public void push(Integer element){
+ 			StackElement newHead = new StackElement(this.headElement, element);
+ 			size++;
+ 			
+ 			this.headElement = newHead;
+ 		}
+ 		
+ 		public Integer pop(){
+	 		if(!this.isEmpty()){
+	 			/* Pop the element */
+	 			Integer result = this.headElement.getValue();
+	 			this.size--;
+	 			this.headElement = this.headElement.getNext();
+	 			
+	 			return result;
+	 		} else {
+	 			return null;
+	 		}
+ 		}
+ 		
+ 		public Boolean isEmpty(){
+ 			return this.getSize() == 0;
+ 		}
+ 		
+ 		public Integer getSize(){
+ 			return this.size;
+ 		}
+ 	}
+ 	
+ 	private Integer threshold = 3;
+ 	
+ 	private Stack headStack = new Stack(null);
+ 	
+ 	private Integer size = 1;
+ 	
+ 	public void push(Integer element){
+ 		if(headStack.getSize() == this.threshold){
+ 			/* Create new Stack */
+ 			this.headStack = new Stack(headStack);
+ 			this.size++;
+ 		}
+ 		
+ 		this.headStack.push(element);
+ 	}
+ 	
+ 	public Integer pop(){
+ 		return this.popFrom(this.size - 1);
+ 	}
+ 	
+ 	public Integer popFrom(Integer stackIndex){
+ 	 	if(this.size == 1 && this.headStack.isEmpty()){
+ 			/* There is no elements to pop */
+ 			return null;
+ 		}
+ 		
+ 		if(stackIndex>=0&&stackIndex<this.size){
+ 			Stack previousStack = null;
+ 			Stack stack = this.headStack;
+ 			
+ 			Integer actualIndex = 0;
+ 			while(actualIndex != (this.size - stackIndex - 1)){
+ 				previousStack = stack;
+ 				stack = stack.getNext();
+ 				actualIndex++;
+ 			}
+
+ 			Integer result = stack.pop();
+ 			
+ 			if(stack.isEmpty()){
+ 				if(previousStack!=null){
+ 					previousStack.setNext(stack.getNext());
+ 					this.size--;
+ 				} else {
+ 					this.headStack = stack.next;
+ 				}
+ 			}
+ 			
+ 			return result;
+ 		} else {
+ 			/* Stack index out of range */
+ 			return null;
+ 		}
+ 	}
+ 	
+	 public static void main(String[] args) {
+		 SetOfStacks stack = new SetOfStacks();
+		 
+		 stack.push(1);
+		 stack.push(2);
+		 stack.push(3);
+		 stack.push(4);
+		 stack.push(5);
+		 stack.push(6);
+		 stack.push(7);
+		 
+		 stack.popFrom(1);
+		 stack.popFrom(1);
+		 
+		 System.out.println(stack.pop());
+		 System.out.println(stack.pop());
+		 System.out.println(stack.pop());
+		 System.out.println(stack.pop());
+		 System.out.println(stack.pop());
+	 }
+	 
+ }

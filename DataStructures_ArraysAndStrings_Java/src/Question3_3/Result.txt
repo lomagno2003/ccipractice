@@ -1,0 +1,4 @@
+/*
+ * I got many syntactic errors, and one mistake that didn't take in count because
+ * of the hurry. The solution proposed was fair enough
+*/
