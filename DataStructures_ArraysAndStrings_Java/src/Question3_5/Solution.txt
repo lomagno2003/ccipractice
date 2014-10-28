@@ -1,0 +1,38 @@
+/*
+ * Is possible implement a queue using two stacks, when you push an element, you 
+ * push it to the first stack, when you pop an element, you pop it from the second
+ * stack, but... if the second stack is empty, you pop all elements from the first,
+ * to the second. Of course if both stacks are empty, then the queue is empty.
+ */
+ 
+ public class MyQueue{
+	private Stack firstStack;
+	
+	private Stack secondStack;
+	
+	public MyQueue(){
+		this.firstStack = new Stack();
+		this.secondStack = new Stack();
+	}
+	
+	public void push(Integer element){
+		this.firstStack.push(element);
+	}
+	
+	public Integer pop(){
+		if(this.secondStack.isEmpty()){
+			if(this.firstStack.isEmpty()){
+				/* The queue is empty */
+				return null;
+			} else {
+				/* We pop all the elements from the first stack, and push them 
+				 * to the second stack */
+				 while(!this.firstStack.isEmpty()){
+				 	this.secondStack.push(this.firstStack.pop());
+				 }
+			}
+		}
+		
+		return this.secondStack.pop();
+	}
+ }
