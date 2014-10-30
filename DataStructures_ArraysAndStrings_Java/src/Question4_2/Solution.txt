@@ -1,0 +1,29 @@
+/*
+ * One way to solve this is making a BFS from the origin node, if the 
+ * BFS finish without finding the destiny node, then there isn't a route
+ * to that node
+ */
+ 
+ public Boolean isRoute(Node origin, Node destiny){
+ 	Queue<Node> pendingNodes = new Queue<Node>();
+ 	Set<Node> visitedNodes = new HashSet<Node>();
+ 	
+ 	visitedNodes.add(origin);
+ 	pendingNodes.add(origin);
+ 	while(!pendingNodes.isEmpty()){
+ 		Node actualNode = pendingNodes.pop();
+ 		
+ 		if(actualNode.equals(destiny)){
+ 			return true;
+ 		} else {
+ 			for(Node adjacent:actualNode.getAdjacents()){
+ 				if(!visitedNodes.contains(adjacent)){
+ 					pendingNodes.add(adjacent);
+ 					visitedNodes.add(adjacent);
+ 				}
+ 			}
+ 		}
+ 	}
+ 	
+ 	return false;
+ }
