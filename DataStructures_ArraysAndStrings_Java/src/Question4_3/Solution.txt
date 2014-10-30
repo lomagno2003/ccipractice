@@ -1,0 +1,22 @@
+/*
+ * One way to solve this is just similar to the split step on merge-sort algorithm
+ * we can first split the array by half each time, in this way, the array will be 
+ * balanced and that guarantee the minimal height of it.  
+ */
+ 
+ public Node generateNode(Integer array[], Integer offset, Integer lenght){
+ 	if(lenght>0){
+	 	if(lenght == 1){
+	 		return new Node(array[offset])
+	 	} else {
+	 		Integer middle = lenght / 2;
+	 		
+	 		Node result = new Node(array[offset + middle]);
+	 		
+	 		result.left = generateNode(array,offset, middle - 1);
+	 		result.left = generateNode(array,offset + middle, middle);
+	 	}
+	 } else {
+	 	return null;
+	 }
+ }
