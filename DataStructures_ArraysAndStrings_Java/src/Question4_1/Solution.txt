@@ -1,0 +1,40 @@
+/*
+ * One way to check if the tree is balanced is using recursion. We can calculate
+ * the depth of each subtree using DFS aproach. This will have a cost of O(N) time,
+ * and O(D) in memory, where D is the max depth of the tree
+ */
+ 
+ public boolean isBalanced(Tree tree){
+ 	Integer depthA = getDepth(tree.getLeftChild());
+ 	Integer depthB = getDepth(tree.getRightChild());
+ 	
+ 	Integer diff = depthA - depthB;
+ 	
+ 	return diff >= -1 || diff <= 1;
+ }
+ 
+ public Integer getDepth(Tree tree){
+ 	if(tree.isLeaf()){
+ 		return 1;
+ 	} else {
+	 	Integer depthA = getDepth(tree.getLeftChild());
+	 	Integer depthB = getDepth(tree.getRightChild());
+	 	
+	 	/* One of the subtrees is not balanced */
+	 	if(depthA==null||depthB==null){
+	 		return null;
+	 	}
+	 	
+	 	Integer diff = depthA - depthB;
+	 	if(diff<0){
+	 		diff = -1*diff;
+	 	}
+ 	
+ 		/* This node is not balanced */
+ 		if(diff > 1){
+ 			return null;
+ 		}
+	 	
+	 	return 1 + Math.max(depthA,depthB);
+	 }
+ }

@@ -1,0 +1,5 @@
+/*
+ * At first i didn't understand if on a balanced tree, every node of the tree
+ * have to be balanced, or all the nodes of the tree have to be.
+ * Beside that, the solution was correct
+*/
