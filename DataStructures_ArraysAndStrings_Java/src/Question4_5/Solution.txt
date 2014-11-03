@@ -1,0 +1,35 @@
+/*
+ * Using recursion is easy, we just have to do a DFS sort, and each element
+ * have to be in ascending order.  
+ */
+ 
+ private Integer lastValue;
+ 
+ public Boolean isBinarySearchTree(Node root){
+ 	lastValue = null;
+ 	
+ 	return dfs(root);
+ }
+ 
+ /* O(N) time, and O(N) space */
+ private Boolean dfs(Node root){
+ 	if(root!=null){
+ 		if(dfs(root.left)){
+ 			if(lastValue==null){
+ 				lastValue = root.value;
+ 			} else {
+	 			if(root.value>lastValue){
+	 				lastValue = root.value;
+	 				
+	 				return dfs(root.right);
+	 			} else {
+	 				/* The tree is not ordered */
+	 				return false;
+	 			}
+	 		}
+ 		}
+ 	} else {
+ 		/* A empty tree could be a empty search tree */
+ 		return true;
+ 	}
+ }
