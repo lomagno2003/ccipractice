@@ -1,0 +1,4 @@
+/*
+ * The solution was almost the same as the book, instead of comparing 
+ * memory positions, i compared the value of the elements. It's the same..
+*/

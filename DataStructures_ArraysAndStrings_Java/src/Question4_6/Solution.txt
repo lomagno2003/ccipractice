@@ -1,0 +1,40 @@
+/*
+ * Ok, one way to solve this is to recurse following the parents and looking for the
+ * lowest element that is higher than the actual element.
+ */
+ 
+ public static Node nextElement(Node node){
+ 	if(node!=null){
+	 	Integer actualValue = node.value;
+	 	
+	 	
+	 	/* The next is the lowest element of the right tree */
+	 	if(node.right!=null){
+	 		Node ptr = node.right;
+	 		
+	 		while(ptr.left!=null){
+	 			ptr = ptr.left;
+	 		}
+	 		
+	 		return ptr;
+	 	} else {
+		 	Node ptr = node.parent;
+		 	
+	 		/* The next is the first parent which is higher than the node */
+		 	while(ptr!=null && ptr.value<actualValue){
+		 		ptr = ptr.parent;
+		 	}
+		 	
+		 	return ptr;
+	 	}
+	 	
+	 	if(ptr == null) {
+	 		/* node is the highest element of the tree */
+	 		return null;
+	 	}
+	 	
+	 	return ptr;
+	 } else {
+	 	return null;
+	 }
+ }
