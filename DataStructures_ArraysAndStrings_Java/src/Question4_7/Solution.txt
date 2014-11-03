@@ -1,0 +1,80 @@
+/*
+ * One way to do this is, supposing each node know's his parent, go up in the tree
+ * , from one of the nodes, marking all the nodes in the way. Then from the second
+ * one, do the same, but in this case we will be looking for the first marked node.
+ * This will be the first ancestor in common between both.
+ */
+ 
+ public Node firstAncestor(Node a, Node b){
+ 	/* We can check if a||b are null, just for better performance */
+ 	if(a==null||b==null){
+ 		return null;
+ 	}
+ 	Set<Node> visitedNodes = new HashMap<Node>();
+ 	
+ 	Node ptr = a;
+ 	
+ 	while(ptr!=null){
+ 		visitedNodes.add(ptr);
+ 		
+ 		ptr = ptr.parent;
+ 	}
+ 	
+ 	ptr = b;
+ 	
+ 	while(ptr!=null){
+ 		if(visitedNodes.contains(ptr)){
+ 			return ptr;
+ 		}
+ 	}
+ 	
+ 	/* The 2 nodes don't belong to the same tree */
+ 	return null;
+ }
+ 
+ 
+ /*
+  * If the nodes don't have links to its parents, then we can't do this. Instead,
+  * we can do a DFS asking for both of the nodes, and if we found the node, then we
+  * return true to that node. The first node with both founded nodes is going to be 
+  * the first ancestor.
+  */
+  
+  private class Wrapper {
+  	public Boolean aFound = false;
+  	public Boolean bFound = false;
+  	public Node result = null;
+  }
+  
+  private static void dfs(Node node, Node a, Node b, Wrapper wrapper){
+  	if(node!=null){
+  		if(wrapper.result==null)
+  			dfs(node.left);
+  			
+  		if(wrapper.result==null)
+  			dfs(node.right);
+  		
+  		if(wrapper.result==null)	
+			if(wrapper.aFound&&wrapper.bFound){
+  				wrapper.result = node;
+  			}
+  		
+  		if(wrapper.result==null){
+  			if(node.equals(a)){
+  				wrapper.aFound = true;
+  			}
+  			
+  			if(node.equals(b)){
+  				wrapper.bFound = true;
+  			}
+  		}
+  	}
+  }
+  
+  public static Node firstAncestor2(Node root, Node a, Node b){
+  	Wrapper wrapper = new Wrapper();
+  	
+  	dfs(root, a, b, wrapper);
+  	
+  	return wrapper.result;
+  }

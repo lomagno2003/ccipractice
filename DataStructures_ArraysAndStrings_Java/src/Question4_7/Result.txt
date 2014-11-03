@@ -1,0 +1,5 @@
+/*
+ * The first solution was fine(with the parents). The second wasn't the same as the
+ * book, but it works and doesn't looks bad. I mark it as unsolved because the solution
+ * of the book doesn't came to my mind.
+*/
