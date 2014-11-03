@@ -1,0 +1,30 @@
+/*
+ * Well, the first solution that comes to my mind is through recursion. We can
+ * iterate through each node of the tree, from "left" to "right" and using a
+ * Map<Integer, Node> in which element of the map corresponds to the list
+ * of the level N. Then we just have to add each node to the corresponding 
+ * level(which is determined via recursion).
+ * This solution will have a cost of O(N) time and a cost of O(M), where M
+ * is the deepest node.
+ */
+ 
+ public void addToList(Node node, Map<Integer, LinkedList<Node>> lists, Integer level){
+ 	if(node != null){
+ 		addToList(node.getLeft(), lists, level + 1);
+ 		addToList(node.getRight(), lists, level + 1);
+ 		
+ 		if(!lists.contains(level)){
+ 			lists.put(level, new LinkedList<Node>());
+ 		}
+ 		
+ 		lists.get(level).add(node);
+ 	}
+ }
+ 
+ public Map<Integer, LinkedList<Node>> generateLists(Node root){
+ 	Map<Integer, LinkedList<Node>> result = new HashMap<Integer, LinkedList<Node>>();
+ 	
+ 	addToList(root, result, 0);
+ 	
+ 	return result;
+ }
