@@ -1,9 +1,5 @@
 package Question4_5;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-
 public class Solution {
 	 private Integer lastValue;
 	 
