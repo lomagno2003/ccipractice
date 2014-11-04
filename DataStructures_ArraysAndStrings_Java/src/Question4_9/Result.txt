@@ -1,0 +1,5 @@
+/*
+ * The result wasn't that ok, in the book, instead of carrying all the paths, 
+ * they use the level, and then "generate" the paths inside the recursion(which
+ * got better cost in space and time). 
+ */

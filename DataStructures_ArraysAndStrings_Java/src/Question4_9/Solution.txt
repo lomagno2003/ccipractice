@@ -1,0 +1,118 @@
+/*
+ * One way to solve this is to traverse the tree keeping track of all the paths,
+ * and start a new path for each node. With each path, we can store its sum, so
+ * check if it satisfies the sum condition will be easier.
+ */
+ 
+ public class Path{
+ 	private List<Integer> nodes;
+ 	
+ 	private Integer sum;
+ 	
+ 	public Path(){
+ 		nodes = new LinkedList<Integer>();
+ 		sum = 0;
+ 	}
+ 	
+ 	public Path(Integer value){
+ 		nodes = new LinkedList<Integer>();
+ 		nodes.add(value);
+ 		sum = value;
+ 	}
+ 	
+ 	public void addNode(Integer value){
+ 		sum+=value;
+ 		nodes.add();
+ 	}
+ 	
+ 	public void removeLastNode(){
+ 		sum -= path.getNodes().get(path.getNodes().size() - 1);
+ 		nodes.remove(path.getNodes().size() - 1);
+ 	}
+ 	
+ 	/* Getters and setters */
+ 	
+ 	public Path clone(){
+ 		Path result = new Path();
+ 		
+ 		for(Integer node:this.getNodes()){
+ 			result.addNode(node);
+ 		}
+ 		
+ 		return result;
+ 	}
+ }
+ 
+ public static void printPath(Path path){
+ 	for(Integer node:path.getNodes()){
+ 		System.out.print(node + ", ");
+ 	}
+ 	
+ 	System.out.println();
+ }
+ 
+ public static void printPaths(Node tree, Collection<Path> paths, Integer sum){
+ 	if(tree != null){
+ 		Collection<Path> removedPaths = new HashSet<Path>();
+ 		for(Path path:paths){
+ 			/* Add actual node to the paths */
+ 			path.addNode(tree.value);
+ 			
+ 			/* Check*/
+ 			if(path.getSum().equals(sum)){
+ 				printPath(path);
+ 			} else if(path.getSum() > sum){
+ 				removedPaths.add(path);
+ 			}
+ 		}
+ 		
+ 		/* Remove paths higher than sum */
+ 		paths.removeAll(removedPaths);
+
+ 		/* Recurse */
+ 		Path newPath = new Path(tree.value);
+ 		paths.add(newPath);
+ 		
+ 		printPaths(tree.left,paths,sum);
+ 		printPaths(tree.right,paths,sum);
+ 		
+ 		/* Undo */
+ 		paths.remove(newPath);
+ 		paths.addAll(removedPaths);
+ 		
+ 		for(Path path:paths){
+ 			path.getNodes().remove(path.getNodes().size() - 1);
+ 			path.setSum(path.getSum() - tree.value);
+ 		}
+ 	}
+ }
+ 
+ public void printPaths2(Node tree, Collection<Path> paths){
+ 	if(tree != null){
+ 		/* Generate paths */
+ 		Collection<paths> newPaths = new HashSet<Path>();
+ 		
+ 		if(paths!=null){
+ 			for(Path path:paths){
+ 				Path newPath = path.clone();
+ 				newPath.addNode(tree.value);
+ 				newPaths.add(newPath);
+ 			}
+ 		}
+ 		
+ 		newPaths.add(new Path(tree.value));
+ 		
+ 		/* Test */
+ 		for(Path path:newPaths){
+ 			if(path.getSum().equals(sum)){
+ 				printPath(path);
+ 			}
+ 		}
+ 		
+ 		/* Recurse */
+ 		printPaths2(tree.left, newPaths);
+ 		printPaths2(tree.right, newPaths);
+ 	}
+ }
+ 
+ 
