@@ -1,0 +1,7 @@
+/*
+ * The first solution was the one proposed by the book but i didn't take in
+ * count one possibility. The second possibility i thought that is soo bad to
+ * take it in count, but was the good one, with a good explanation of the cost
+ * of it.
+ * Anyway, the possibility that i proposed could be good too.
+*/

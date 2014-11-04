@@ -1,0 +1,40 @@
+/*
+ * As a first approach, we can convert both trees in a strings, then the 
+ * tree A will be a subtree if the second string contains the first string.
+ * Of course it will have a cost of O(M + N) time(KMP algorithm) and O(M + N)
+ * 
+ * Another solution is using a hashing function. If we suppose that there is not
+ * going to be collisions with different trees, then this approach could be better
+ * than the other. The cost will be O(M + N) but the space cost is going to be
+ * O(D), where D is the deepest node(log(N) for a balanced tree) because of 
+ * the recursion. 
+ */
+ 
+ public Long getHashValue(Node tree, Long hashValue){
+ 	if(tree!=null){
+ 		Long result = getHashValue(tree.left);
+ 		result += tree.value.hashCode();
+ 		result += getHashValue(tree.right);
+ 		
+ 		if(hashValue!=null&&hashValue.equals(result)){
+ 			found = true;
+ 		}
+ 		
+ 		return result;
+ 	} else {
+ 		return 0;
+ 	}
+ }
+ 
+ private static found;
+ 
+ public Boolean isSubtree(Node treeA, Node treeB){
+ 	Long hashValue = getHashValue(treeA, null);
+ 	
+ 	found = false;
+ 	
+ 	/* Look for subtree */
+ 	getHashValue(treeB, hashValue);
+ 	
+ 	return found;
+ }
