@@ -1,0 +1,4 @@
+/*
+ * The result wasn't that good, instead of calculating 2^(-i) i could save the
+ * previous value, reducing the processing time by a LOT
+ */
