@@ -1,0 +1,7 @@
+/*
+ * First i will fill the three-quart jug, and with that water i will put it in the 
+ * five-quart jug, then i will fill again the three-quart jug and will fill the 
+ * five-quart jug, so the rest in the three-jug will be just one-quart. I can make
+ * a mark on it and fill it to that mark 4 times, and dropping its content into the
+ * five-quart(after emptying it).
+ */
