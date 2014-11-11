@@ -1,0 +1,16 @@
+/*
+ * Suppose we want to fill the chess horizontally. We will put the dominos horizontally
+ * too. Now because the corner was cut off, we will have to put one domino vertically,
+ * occupying one field of the below row. That will divide the below row in 2 parts, 
+ * one with pair size, and the other with odd size. Now that produce that, in the
+ * odd part, i will have to put a vertical domino to allow fill it with horizontal
+ * dominos. That vertical domino, will fill one of the below row, splitting it in two.
+ * Every time we insert a vertical domino, the odd side will be swapping between 
+ * left and right(because we want to fill the field occupied by the vertical 
+ * domino of the previous row) So if the top-left corner was the cut off, the odd
+ * side of the row 0 will be right, following the previous explanation, the odd
+ * side of the last row will be left, so we will have to put the vertical domino
+ * on the left side to make it pair, but that field should be filled by the other
+ * cutted of corner(which is opposite, so is on the right). That's why is impossible
+ * to fill the chess.  
+ */

@@ -1,0 +1,4 @@
+/*
+ * My solution wasn't in the book, but i don't know if it's true or not.. but
+ * the solution of the colors was really good, and i didn't thought about it :S 
+ */
