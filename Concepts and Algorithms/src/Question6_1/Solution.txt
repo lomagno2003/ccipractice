@@ -1,0 +1,13 @@
+/*
+ * Well, i can put pills of the bottle in an ascending scale, for example
+ * 1 pills of bottle 1,
+ * 2 pills of bottle 2,
+ * and so on.. so if all the bottles have pills of 1 gram, when i use the measure
+ * it should give me 1 + 2 + 3 ... 19 + 20 = 210
+ * Now, suppose that one of the bottles have 1.1 gram pills, and suppose is the bottle
+ * 7, we have to sum 0.7 grams to the result. Then if the measure give 210.7, then the
+ * 7th bottle is the heavy one. If it were the 18th bottle, the sum would give
+ * 211.8, now we can find the bottle just doing this:
+ * bottleIndex = (sum - 210)*10
+ * And thats it
+ */
