@@ -1,0 +1,30 @@
+/*
+ * Well, of course i can't do a binary search, because i can break both eggs and 
+ * i will run out of them quickly.
+ * I can do something similar by dropping the egg from the first floor,
+ * if it doesn't break, i drop it from the second, if it doesn't breake, drop it from
+ * the fourth, then from the 8th, and so on. In the worst case it will break at
+ * 7th drop(because at the 8th drop, we should drop it from the 128th floor, but
+ * the building have only 100 floors). If at the 8th drop(in the floor 100), the egg
+ * doesn't break, we can't continue, and we could say that N > 100.
+ *
+ * If the egg break at, suppose i-th drop, then we can do a linear search from the
+ * previous i, in the worst case, the egg will break in the 8th drop, so N should be
+ * between 64 and 100, if we do a lineal search, the worst case will be at floor 99,
+ * so we will need 8 + (100-64) - drops, which is 43
+ 
+ * Another solution is to use the first egg to do a binary search, and when it brakes
+ * do a linear search from the previous i where we know that the egg will not brake.
+ * If the egg brakes in the first drop(at floor 50) then we will do a linear search
+ * from 0 to 49, so we would need 50 drops(which is the worst case), but if the egg
+ * doesn't brake at the first drop, then we reduce the search space in half, then 
+ * if the egg brakes at second drop, we will need to search linearly in only 25 floors
+ * then we would need 25 + 2, which is a lot better.
+ 
+ * But if we do first a linear search but going from 2 by 2, we will need to do(in the
+ * worst case, 100/2 + 1 drops) which is 51, but if we do a linear search by 3 by 3,
+ * then we need 100/3 + 2 drops, which is 33 + 2 = 35, by 4 will be 25 + 3 = 28,
+ * by 5 will be 20 + 4 = 24 by 6 will be 100/6 + 5 = 17 + 5 = 22, by 8 will be
+ * 13 + 6 = 19, by 10 will be 10 + 9, and by 9 will be 12 + 8, so if we do a linear
+ * search jumping by 10 floors, we will need in the worst case 10 + 9 drops to know N
+ */
