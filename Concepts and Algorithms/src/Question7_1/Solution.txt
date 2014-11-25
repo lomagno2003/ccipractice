@@ -1,0 +1,9 @@
+/*
+If p is the probability to make the shot, then the probability of win the first
+game is just p. In the other game, the probability of win will be the probability
+of miss just one of the shoots plus the probability of make all of them. So if !p
+is the probability of miss the shot(!p=1-p), then:
+!p*p*p + p*!p*p + p*p*!p + p*p*p = 3(p*p*!p) + p³
+then if(p > 3(p*p*!p + p³) then i will choose the first game, else i will choose 
+the second one
+*/
