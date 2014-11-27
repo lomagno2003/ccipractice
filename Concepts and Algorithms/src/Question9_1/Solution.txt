@@ -1,0 +1,30 @@
+/*
+ * We know that if we are in the step n-1, there is only one possible way to run up
+ * the stairs.
+ * If we are in the n-2 we can jump 2 steps and we are on the top of the stair, or
+ * we can jump 1 step, and then we are in the n-1 step(which we calculate it previously)
+ * If we are in the n-3 we can jump 3 steps and we are on the top of the stair,
+ * jump 2 steps and we are on the n-1(already calculated) or 1 step and we are on the
+ * n-2(already calculated).
+ * Following this approach, we can cache the number of possible ways to get to the top
+ * of the stair and calculate it from n-1 to the step 0.
+ */
+ 
+ public int static n;
+ public int static waysFromStep[] = new int[n-3];
+ 
+ public static int possibleWays(int i){
+ 	if(i==n) return 0;
+ 	if(i==n-1) return 1;
+ 	if(i==n-2) return 2;
+ 	if(i==n-3) return 4;
+ 	
+ 	if(waysFromStep[i] == 0){
+	 	waysFromStep[i] = 
+	 		possibleWays(i + 1) *
+	 		possibleWays(i + 2) *
+	 		possibleWays(i + 3);
+ 	}
+
+ 	return waysFromStep[i];
+ }
