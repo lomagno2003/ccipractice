@@ -1,0 +1,32 @@
+/*
+[1,2,3]
+[1]
+[1,2]
+[1,3]
+[2,3]
+[2]
+[3]
+
+One way to do this is via recursion, i can form all the combinations of subgroups
+and for each element generate all groups with and without the actual element.
+In other words:
+*/
+
+//O(2^n) in time and O(2^N*N) in space
+public static void getSubGroups(Set<Integer> actualGroup, Set<Integer> otherElements, Set<Set<Integer>> result){
+	if(otherElements.isEmpty()){
+		result.add(new HashSet(actualGroup));
+	} else {
+		Integer firstElement = otherElements.iterator.next();
+		otherElements.remove(firstElement);
+		
+		getSubGroups(actualGroup, otherElements, result);
+		
+		actualGroup.add(firstElement);
+		getSubGroups(actualGroup, otherElements, result);
+		
+		/* Undo */
+		otherElements.add(firstElement);
+	}
+}
+
