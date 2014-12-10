@@ -1,0 +1,3 @@
+The solution was close, but not the best, i didn't check that in some cases
+could be non secuential magic indexes. Need to think more slowly each problems
+and don't rush to a solution. 
